@@ -1,0 +1,23 @@
+version: "3"
+services:
+  ptm-server:
+    image: ptm-server
+    ports:
+      - "8761:8761"
+    networks:
+      - ptm-net
+      
+  ptm-main:
+    image: ptm-main
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER=http://ptm-server:8761/eureka
+    ports:
+      - "7070:7070"
+    networks:
+      - ptm-net
+    depends_on:
+      - ptm-server
+    
+networks:
+  ptm-net: 
